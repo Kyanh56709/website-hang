@@ -6,32 +6,38 @@ import Link from 'next/link';
 
 export default function Checkout() {
   const router = useRouter();
-  const { cart, totalPrice, clearCart } = useCart();
+  const { cart, totalPrice, totalItems, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<'cash' | 'bank'>('cash');
   const [showQR, setShowQR] = useState(false);
   
-  // Form State
+  // Calculate Shipping Fee based on logic:
+  // < 5 items = 5,000 VND
+  // >= 5 items = 10,000 VND
+  const shippingFee = totalItems >= 5 ? 10000 : 5000;
+  const finalTotal = totalPrice + shippingFee;
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    address: 'Phòng G304, tầng 1 tòa BC...'
+    address: '',
+    time: 'Càng sớm càng tốt', // Default as per screenshot
+    note: '' // Added for "Nước ngọt đóng chai"
   });
 
   const handleOrder = () => {
     if(!formData.name || !formData.phone || !formData.address) {
-      alert("Vui lòng điền đầy đủ thông tin!");
+      alert("Vui lòng điền đầy đủ Tên, SĐT và Địa chỉ!");
       return;
     }
 
     if (paymentMethod === 'bank') {
-      setShowQR(true); // Show QR popup
+      setShowQR(true);
     } else {
-      finishOrder(); // Go straight to success
+      finishOrder();
     }
   };
 
   const finishOrder = () => {
-    // Generate random Order ID and pass it via URL
     const orderId = Math.floor(100000000 + Math.random() * 900000000);
     clearCart();
     router.push(`/success?id=${orderId}`);
@@ -50,31 +56,55 @@ export default function Checkout() {
     <main className="container" style={{paddingTop: 20}}>
       <div style={{display:'flex', alignItems:'center', gap: 10, marginBottom: 20}}>
         <Link href="/" style={{textDecoration:'none', fontSize: '1.2rem'}}>←</Link>
-        <h1>Thông tin giỏ hàng</h1>
+        <h1 style={{fontSize: '1.5rem'}}>Thông tin giỏ hàng</h1>
       </div>
 
       <div className="checkout-grid">
-        {/* LEFT COLUMN: INFO */}
+        {/* LEFT COLUMN */}
         <div>
-          {/* Delivery Method Tab */}
           <div className="checkout-card">
-            <div className="tab-group">
-              <div className="tab active">Giao hàng</div>
-              <div className="tab" style={{color:'#ccc', cursor:'not-allowed'}}>Tự đến lấy</div>
+            {/* Delivery only - No tabs */}
+            <div style={{
+              background: '#f1f2f6', 
+              padding: '10px 15px', 
+              borderRadius: '8px', 
+              fontWeight: 'bold', 
+              marginBottom: '20px',
+              textAlign: 'center',
+              color: 'var(--dark)'
+            }}>
+              Giao hàng tận nơi
             </div>
 
-            {/* Address Input */}
+            {/* Address with Example in Label */}
             <div className="form-group">
-              <label className="form-label">Địa chỉ nhận đồ</label>
-              <textarea 
+              <label className="form-label">
+                Địa chỉ nhận đồ 
+                <span style={{fontWeight: 400, color: '#888', marginLeft: 8, fontSize: '0.85rem'}}>
+                  (VD: Phòng G304, tầng 1 tòa BC...)
+                </span>
+              </label>
+              <input 
                 className="form-input" 
-                rows={2}
                 value={formData.address}
                 onChange={(e) => setFormData({...formData, address: e.target.value})}
               />
             </div>
 
-            {/* Customer Info */}
+             {/* Delivery Time (New) */}
+             <div className="form-group">
+              <label className="form-label">Thời gian giao hàng</label>
+              <select 
+                className="form-input"
+                value={formData.time}
+                onChange={(e) => setFormData({...formData, time: e.target.value})}
+              >
+                <option value="Càng sớm càng tốt">Càng sớm càng tốt</option>
+                <option value="Sau 30 phút">Sau 30 phút</option>
+                <option value="Sau 1 tiếng">Sau 1 tiếng</option>
+              </select>
+            </div>
+
             <div className="form-group">
               <label className="form-label">Tên người nhận</label>
               <input 
@@ -93,6 +123,18 @@ export default function Checkout() {
                 placeholder="Nhập số điện thoại..."
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              />
+            </div>
+
+            {/* Note Field (Important for drinks) */}
+            <div className="form-group">
+              <label className="form-label">Ghi chú món ăn (VD: Loại nước ngọt)</label>
+              <textarea 
+                className="form-input"
+                rows={2}
+                placeholder="VD: Cho mình lấy Coca, không cay..."
+                value={formData.note}
+                onChange={(e) => setFormData({...formData, note: e.target.value})}
               />
             </div>
           </div>
@@ -115,21 +157,30 @@ export default function Checkout() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: SUMMARY */}
+        {/* RIGHT COLUMN */}
         <div>
           <div className="checkout-card">
             <div className="checkout-header">Món đã chọn</div>
             {cart.map(item => (
               <div key={item.id} style={{display:'flex', justifyContent:'space-between', marginBottom:10, fontSize:'0.9rem'}}>
                 <span>{item.quantity}x {item.name}</span>
-                <span>${(item.price * item.quantity).toFixed(2)}</span>
+                {/* Format VND */}
+                <span>{(item.price * item.quantity).toLocaleString('vi-VN')}đ</span>
               </div>
             ))}
             
             <div className="summary-total">
-              <div className="summary-row">
+              <div className="summary-row" style={{fontWeight: 400}}>
+                <span>Tổng cộng {totalItems} món</span>
+                <span>{totalPrice.toLocaleString('vi-VN')}đ</span>
+              </div>
+              <div className="summary-row" style={{fontWeight: 400}}>
+                <span>Phí vận chuyển</span>
+                <span>{shippingFee.toLocaleString('vi-VN')}đ</span>
+              </div>
+              <div className="summary-row" style={{marginTop: 15, fontSize: '1.2rem', color: 'var(--primary)'}}>
                 <span>Tiền phải thanh toán</span>
-                <span style={{color:'var(--primary)'}}>${totalPrice.toFixed(2)}</span>
+                <span>{finalTotal.toLocaleString('vi-VN')}đ</span>
               </div>
             </div>
 
@@ -140,16 +191,23 @@ export default function Checkout() {
         </div>
       </div>
 
-      {/* QR MODAL (Only shows if Bank Transfer selected) */}
+      {/* QR MODAL */}
       {showQR && (
         <div className="qr-modal">
           <div className="qr-content">
             <h3>Quét mã để thanh toán</h3>
-            {/* Fake QR Code */}
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=CampusGoPayment" alt="QR Code" className="qr-code-img" />
-            <p style={{marginBottom: 20, fontSize:'0.9rem'}}>Vui lòng chuyển khoản chính xác số tiền.</p>
+            <p style={{marginBottom: 20, fontSize:'0.9rem'}}>
+              Vui lòng chuyển khoản: <b style={{color:'var(--primary)'}}>{finalTotal.toLocaleString('vi-VN')}đ</b>
+            </p>
             <button className="checkout-btn" onClick={finishOrder}>
               Đã chuyển khoản
+            </button>
+            <button 
+              style={{marginTop: 10, background: 'transparent', border:'none', textDecoration:'underline', cursor:'pointer'}} 
+              onClick={() => setShowQR(false)}
+            >
+              Quay lại
             </button>
           </div>
         </div>
