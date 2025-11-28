@@ -7,6 +7,7 @@ export interface FoodItem {
   desc: string;
 }
 
+
 export const categories = ["All", "Món Chính", "Ăn Vặt", "Đồ Uống"];
 
 export const foodItems: FoodItem[] = [
@@ -16,7 +17,7 @@ export const foodItems: FoodItem[] = [
     name: "Bún bò Huế",
     category: "Món Chính",
     price: 30000,
-    image: "https://images.unsplash.com/photo-1582878826618-c05326effd8b?auto=format&fit=crop&w=600&q=80", 
+    image: "/images/Menu CampusGo/Bún bò Huế.jpg", 
     desc: "Đậm đà hương vị cố đô, đầy đủ mọc, thịt bò.",
   },
   {
@@ -24,7 +25,7 @@ export const foodItems: FoodItem[] = [
     name: "Bún đậu mắm tôm",
     category: "Món Chính",
     price: 30000,
-    image: "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?auto=format&fit=crop&w=600&q=80",
+    image: "/images/Menu CampusGo/Bún đậu mắm tôm.jpg",
     desc: "Đậu rán giòn nóng hổi, chả cốm, mắm tôm pha ngon.",
   },
   {
@@ -32,7 +33,7 @@ export const foodItems: FoodItem[] = [
     name: "Bún trộn",
     category: "Món Chính",
     price: 30000,
-    image: "https://images.unsplash.com/photo-1616429384534-19ec80112469?auto=format&fit=crop&w=600&q=80",
+    image: "/images/Menu CampusGo/Bún trộn.webp",
     desc: "Bún trộn chua ngọt thanh mát, nhiều topping.",
   },
   {
@@ -40,7 +41,7 @@ export const foodItems: FoodItem[] = [
     name: "Cơm rang dưa bò",
     category: "Món Chính",
     price: 30000,
-    image: "https://images.unsplash.com/photo-1603133872878-684f208fb74b?auto=format&fit=crop&w=600&q=80",
+    image: "/images/Menu CampusGo/Cơm rang dưa bò.webp",
     desc: "Cơm rang vàng giòn với dưa chua và thịt bò.",
   },
   {
@@ -48,7 +49,7 @@ export const foodItems: FoodItem[] = [
     name: "Cơm rang thập cẩm",
     category: "Món Chính",
     price: 30000,
-    image: "https://images.unsplash.com/photo-1536304993881-ff3c9e3f42fa?auto=format&fit=crop&w=600&q=80",
+    image: "/images/Menu CampusGo/Cơm rang thập cẩm.jpg",
     desc: "Đầy đủ dinh dưỡng với rau củ, giò, trứng.",
   },
 
@@ -58,7 +59,7 @@ export const foodItems: FoodItem[] = [
     name: "Bánh bao gà",
     category: "Ăn Vặt",
     price: 15000,
-    image: "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?auto=format&fit=crop&w=600&q=80",
+    image: "/images/Menu CampusGo/Bánh bao gà.webp",
     desc: "Vỏ mềm xốp, nhân gà nấm nướng thơm ngon.",
   },
   {
@@ -66,7 +67,7 @@ export const foodItems: FoodItem[] = [
     name: "Bánh bao thịt",
     category: "Ăn Vặt",
     price: 12000,
-    image: "https://images.unsplash.com/photo-1630129768266-99646c26535f?auto=format&fit=crop&w=600&q=80",
+    image: "images/Menu CampusGo/Bánh bao thịt.jpg",
     desc: "Nhân thịt trứng cút truyền thống đậm đà.",
   },
   {
@@ -74,7 +75,7 @@ export const foodItems: FoodItem[] = [
     name: "Bánh bao chay",
     category: "Ăn Vặt",
     price: 6000,
-    image: "https://images.unsplash.com/photo-1541746274-1246c76cb3a7?auto=format&fit=crop&w=600&q=80",
+    image: "images/Menu CampusGo/Bánh bao chay.jpg",
     desc: "Thanh đạm, nhẹ nhàng cho bữa phụ.",
   },
   {
@@ -82,16 +83,16 @@ export const foodItems: FoodItem[] = [
     name: "Kimbap thường",
     category: "Ăn Vặt",
     price: 20000,
-    image: "https://images.unsplash.com/photo-1610419827402-23c2a6327376?auto=format&fit=crop&w=600&q=80",
+    image: "images/Menu CampusGo/Kimbap thường.jpg",
     desc: "Cơm cuộn rong biển Hàn Quốc chuẩn vị.",
   },
   {
     id: 10,
     name: "Kimbap chiên",
     category: "Ăn Vặt",
-    price: 22300,
-    image: "https://images.unsplash.com/photo-1603245460565-5a7b42a6a6f4?auto=format&fit=crop&w=600&q=80",
-    desc: "Vỏ ngoài giòn rụm, bên trong mềm dẻo (22k3).",
+    price: 22000,
+    image: "images/Menu CampusGo/Kimbap chiên.jpg",
+    desc: "Vỏ ngoài giòn rụm, bên trong mềm.",
   },
 
   // --- ĐỒ UỐNG ---
@@ -100,31 +101,31 @@ export const foodItems: FoodItem[] = [
     name: "Nước chanh leo",
     category: "Đồ Uống",
     price: 5000,
-    image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
+    image: "images/Menu CampusGo/Chanh leo.webp",
     desc: "Giải khát, bổ sung vitamin C tự nhiên.",
   },
   {
     id: 12,
-    name: "Trà đào cam sả",
+    name: "Trà đào",
     category: "Đồ Uống",
     price: 5000,
-    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80",
+    image: "images/Menu CampusGo/Trà đào.webp",
     desc: "Thơm ngon mát lạnh, có miếng đào giòn.",
   },
   {
     id: 13,
-    name: "Trà chanh / Trà dâu",
+    name: "Trà chanh",
     category: "Đồ Uống",
     price: 5000,
-    image: "https://images.unsplash.com/photo-1519226612673-73c0234437ef?auto=format&fit=crop&w=600&q=80",
-    desc: "Vui lòng ghi chú vị bạn chọn (Chanh hoặc Dâu).",
+    image: "images/Menu CampusGo/Trà chanh.avif",
+    desc: "Trà tươi pha với chanh tươi, đá mát lạnh.",
   },
   {
     id: 14,
     name: "Sữa đậu nành",
     category: "Đồ Uống",
     price: 5000,
-    image: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=600&q=80",
+    image: "images/Menu CampusGo/Sữa đậu nành.jpg",
     desc: "Thơm ngon, bổ dưỡng, nấu trong ngày.",
   },
   {
@@ -132,7 +133,15 @@ export const foodItems: FoodItem[] = [
     name: "Nước ngọt đóng chai",
     category: "Đồ Uống",
     price: 10000,
-    image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80",
-    desc: "Coca, Pepsi, 7Up"
+    image: "images/Menu CampusGo/Nước ngọt đóng chai.jpg",
+    desc: "Vui lòng ghi loại nước bạn chọn khi đặt hàng.",
   },
+  {
+    id: 16,
+    name: "Trà dâu",
+    category: "Đồ Uống",
+    price: 5000,
+    image: "images/Menu CampusGo/Trà dâu.jpg",
+    desc: "Trà tươi pha với siro dâu ngọt mát.",
+  }
 ];
