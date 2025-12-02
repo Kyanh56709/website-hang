@@ -24,8 +24,7 @@ export default function Home() {
         <div className="container nav-content">
           {/* LOGO UPDATE: CampusGo */}
           <div className="logo" style={{display:'flex', alignItems:'center', gap:'10px'}}>
-             {/* You can replace this Emoji with your Image: <img src="/logo.png" height="40" /> */}
-            <span style={{fontSize:'2rem'}}>🥡</span> 
+            <img src="/favicon.ico" alt="CampusGo Logo" style={{width:'80px', height:'80px'}} />
             <span>CampusGo</span>
           </div>
           <button className="cart-btn" onClick={() => setIsCartOpen(true)}>
